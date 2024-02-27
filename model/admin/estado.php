@@ -39,19 +39,21 @@ if ($resultado) {
                 <tbody>
 
                     <?php
-                    while ($fila = $resultado->fetch(PDO::FETCH_ASSOC)) {
-                        echo '
-                        <tr>
-                            <td>' . $fila["id_est"] . '</td>
-                            <td>' . $fila["tip_est"] . '</td>
-                            <td>
-                                <div class="text-center">
-                                    <a href="editar/editar_estado.php?id=' . $fila["id_est"] . '" class="btn btn-primary btn-sm">Editar</a>
-                                    <a href="eliminar/eliminar_estado.php?id=' . $fila["tip_est"] . '" class="btn btn-danger btn-sm">Eliminar</a>
-                                </div>
-                            </td>
-                        </tr>';
-                    }
+                   
+while ($fila = $resultado->fetch(PDO::FETCH_ASSOC)) {
+    echo '
+    <tr>
+        <td>' . $fila["id_est"] . '</td>
+        <td>' . $fila["tip_est"] . '</td>
+        <td>
+            <div class="text-center">
+                <a href="actualizar/editar_estado.php?id=' . $fila["id_est"] . '" class="btn btn-primary btn-sm">Editar</a>
+                <a href="eliminar/eliminar_estado.php?id=' . $fila["id_est"] . '" class="btn btn-danger btn-sm">Eliminar</a>
+            </div>
+        </td>
+    </tr>';
+}
+
                     ?>
 
                 </tbody>

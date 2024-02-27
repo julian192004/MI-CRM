@@ -29,7 +29,7 @@ $con = $conexion->conectar();
         <tbody>
 
             <?php
-            $consulta = "SELECT * FROM tip_usu";
+            $consulta = "SELECT * FROM roles";
              
             $resultado = $con->query($consulta);
 
@@ -40,8 +40,8 @@ $con = $conexion->conectar();
                     <td>' . $fila["tip_usu"] . '</td>
                     <td>
                         <div class="text-center">
-                            <a href="editar/editar_tipo_usuario.php?id=' . $fila["id_tip_usu"] . '" class="btn btn-primary btn-sm">Editar</a>
-                            <a href="eliminar/eliminar_tipo_usuario.php?id=' . $fila["id_tip_usul"] . '" class="btn btn-danger btn-sm">Eliminar</a>
+                            <a href="actualizar/editar_rol.php?id=' . $fila["id_tip_usu"] . '" class="btn btn-primary btn-sm">Editar</a>
+                            <a href="eliminar/eliminar_rol.php?id=' . $fila["id_tip_usu"] . '" class="btn btn-danger btn-sm">Eliminar</a>
                         </div>
                     </td>
                 </tr>';
@@ -51,7 +51,7 @@ $con = $conexion->conectar();
     </table>
     <div class="row mb-3">
         <div class="col-md-6 text-start">
-            <a href="crear/crear_tipo_usuario.php" class="btn btn-success">Crear Nuevo Tipo de Usuario</a>
+            <a href="crear/crear_rol.php" class="btn btn-success">Crear Nuevo Tipo de Usuario</a>
         </div>
     </div>
     <div class="row mt-3">

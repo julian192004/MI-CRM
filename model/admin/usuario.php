@@ -36,9 +36,9 @@
         <tbody>
 
             <?php
-            $consulta = "SELECT * FROM usuario, roles WHERE usuario.id_tip_usu = rol.tip_usu";
-            $resultado = $con->query($consulta);
-
+         $consulta = "SELECT * FROM usuario INNER JOIN roles ON usuario.id_tip_usu = roles.id_tip_usu";
+         $resultado = $con->query($consulta);
+         
             while ($fila = $resultado->fetch()) {
                 echo '
                 <tr>
