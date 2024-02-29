@@ -14,13 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $id_rol = $_POST["id_rol"];
 
-    // Construir la parte de la consulta que actualiza la contraseña solo si se proporciona una nueva contraseña
-    $password_update = ($password != "") ? ", password='$password'" : "";
-
-    // Actualizar la información en la base de datos
-    $consulta_actualizar = "UPDATE usuario SET nombre='$nombre', correo='$telefono', correo='$cor reo' $password_update, id_rol='$id_rol' WHERE documento='$documento'";
-    $con->query($consulta_actualizar);
-
     // Redireccionar a la página principal después de la actualización
     header("Location: ../usuario.php");
     exit();
@@ -49,36 +42,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="container mt-5">
     <h1 class="text-center">Editar Usuario</h1>
     <br>
-    <form method="POST" action="">
-        <input type="hidden" name="documento" value="<?php echo $usuario["documento"]; ?>">
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre:</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $usuario["nombre"]; ?>" required>
-        </div>
-        <div class="mb-3">
-            <label for="telefono" class="form-label">Teléfono:</label>
-            <input type="text" class="form-control" id="telefono" name="telefono" value="<?php echo $usuario["telefono"]; ?>" required>
-        </div>
-        <div class="mb-3">
-            <label for="correo" class="form-label">Correo:</label>
-            <input type="email" class="form-control" id="correo" name="correo" value="<?php echo $usuario["correo"]; ?>" required>
-        </div>
-        <div class="mb-3">
-            <label for="id_rol" class="form-label">Tipo de Usuario:</label>
-            <select class="form-control" id="id_rol" name="id_rol">
-                <?php
-                $control = $con->prepare("SELECT * FROM tipo_usuario");
-                $control->execute();
-                while ($fila = $control->fetch(PDO::FETCH_ASSOC)) {
-                    $selected = ($fila['id_rol'] == $usuario['id_rol']) ? 'selected' : '';
-                    echo "<option value=" . $fila['id_rol'] . " $selected>"
-                        . $fila['tipo_usu'] . "</option>";
-                }
-                ?>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Actualizar</button>
-    </form>
+    <form class="row g-3 needs-validation" method="post" novalidate>
+    <div class="col-12">
+        <label class="form-label" for="documento">Documento</label>
+        <input type="number" id="documento" name="documento" class="form-control" value="<?php echo $usuario["documento"]; ?>" minlength="9" required readonly>
+        <div class="invalid-feedback">Por Favor, ingrese su Documento!</div>
+    </div>
+    <div class="col-12">
+        <label class="form-label" for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" class="form-control" value="<?php echo $usuario["nombre"]; ?>" required>
+        <div class="invalid-feedback">Por Favor, ingrese su Nombre!</div>
+    </div>
+    <div class="col-12">
+        <label class="form-label" for="correo">Correo</label>
+        <input type="email" id="correo" name="correo" class="form-control" value="<?php echo $usuario["correo"]; ?>" required>
+        <div class="invalid-feedback">Por Favor, ingrese su Correo!</div>
+</div>
+    <div class="col-12">
+        <label class="form-label" for="pin">Pin</label>
+        <input type="number" id="pin" name="pin" class="form-control" value="<?php echo $usuario["pin"]; ?>" pattern="\d{5,}" required>
+        <div class="invalid-feedback">Por Favor, ingrese su Pin!</div>
+    </div>
+    <div class="col-12">
+        <label class="form-label" for="telefono">Telefono</label>
+        <input type="number" id="telefono" name="telefono" class="form-control" value="<?php echo $usuario["telefono"]; ?>" required>
+        <div class="invalid-feedback">Por Favor, ingrese su Telefono!</div>
+    </div>
+    <div class="col-12">
+        <label class="form-label" for="direccion">Dirección</label>
+        <input type="text" id="direccion" name="direccion" class="form-control" value="<?php echo $usuario["direccion"]; ?>" required>
+        <div class="invalid-feedback">Por Favor, ingrese su Dirección!</div>
+    </div>
+    <div class="col-12">
+        <label for="id_rol" class="form-label">Tipo de Usuario:</label>
+        <select class="form-control" id="id_rol" name="id_rol">
+        <?php
+$control = $con->prepare("SELECT * FROM roles");
+$control->execute();
+while ($fila = $control->fetch(PDO::FETCH_ASSOC)) {
+    $selected = ($fila['id_tip_usu'] == $usuario['tip_usu']) ? 'selected' : '';
+    echo "<option value=" . $fila['id_tip_usu'] . " $selected>"
+        . $fila['tip_usu'] . "</option>";
+}
+?>
+
+        </select>
+    </div>
+    <div class="col-12">
+        <button class="btn btn-primary w-100" type="submit">Actualizar</button>
+    </div>
+</form>
+
+
     <br>
     <div class="row mt-3">
         <div class="col-md-6 text-start">
